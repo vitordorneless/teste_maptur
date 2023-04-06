@@ -25,36 +25,41 @@
                 </div><br><br><br>
                 <div class="container">
                     <?php
-                    $a = array(4, 5, 6, 5, 4, 3, 3, 3, 3, 7, 8, 9, 10, 10, 10, 10, 11, 11, 1, 1);
-                    
-                    echo 'Array Original<br>';
-                    print_r($a);
-                    echo '<br>';
-                    echo '<br>';
-                    
-                    $arr = array_count_values($a);
-                    $array_valores_unicos = $array_valores_repetidos = $novo_array = array();
-                    
-                    foreach ($arr as $key => $value) {
-                        if ($value > 1) {
-                            for ($i = 1; $i <= $value; $i++) {
-                                array_push($array_valores_repetidos, $key);
-                            }
-                        } else {
-                            array_push($array_valores_unicos, $key);
+                    (int) $a = 5;
+                    echo $a . ' Valor para gerar Fibonacci<br>';
+                    $fibonacci = $gera_array = array();
+                    (int) $posicao_01 = (int) $posicao_02 = (int) $contaposicao = (int) $contaposicaoforeach = (int) $index = (int) $nova_posicao = (int) $proxima_posicao_01 = 0;
+
+                    for ($i = 0; $i < $a; ++$i) {
+                        array_push($gera_array, $i);
+                    }
+
+                    foreach ($gera_array as $value) {
+
+                        ++$contaposicao;
+
+                        if ($contaposicao == 1) {
+                            $posicao_01 = $nova_posicao > 0 ? $proxima_posicao_01 : $value;
+                            array_push($fibonacci, $posicao_01);
+                        }
+
+                        if ($contaposicao == 2) {
+                            $posicao_02 = $value;
+                            array_push($fibonacci, $posicao_02);
+                            array_push($fibonacci, bcadd($posicao_01, $posicao_02, 0));
+                            $nova_posicao = bcadd($posicao_01, $posicao_02, 0);
+                            $proxima_posicao_01 = bcadd($posicao_02, $nova_posicao, 0);
+                            $contaposicao = $posicao_01 = $posicao_02 = 0;
                         }
                     }
-                    
-                    sort($array_valores_unicos, SORT_NUMERIC);
-                    sort($array_valores_repetidos, SORT_NUMERIC);
-                    
-                    $novo_array = array_merge($array_valores_unicos, $array_valores_repetidos);
 
-                    $i = 0;
-
-                    foreach ($novo_array as $value) {
-                        echo 'Posição ' . ++$i . ' - ' . $value . '<br>';
+                    foreach ($fibonacci as $value) {
+                        ++$contaposicaoforeach;
+                        echo $value . ' <br>';
+                        if ($contaposicaoforeach == $a)
+                            break;
                     }
+                    
                     ?>
                 </div>
                 <br><br>
